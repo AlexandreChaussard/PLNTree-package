@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+
+[project]
+name = "plntree_test"
+dynamic = ["version"]
+description = "Package implementing PLN-Tree models and TaxaPLN augmentation."
+readme = "README.md"
+license = {text = "MIT License"}
+license-files = ["LICENSE"]
+requires-python = ">=3.8"
+keywords = [
+        "python",
+        "count",
+        "multivariate",
+        "tree",
+        "metagenomics",
+        "taxonomy",
+        "PLN",
+        ]
+authors = [
+  {name = "Alexandre Chaussard", email = "alexandre.chaussard@sorbonne-universite.fr"},
+]
+maintainers = [{name = "Alexandre Chaussard", email = "alexandre.chaussard@sorbonne-universite.fr"}]
+classifiers = [
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python",
+]
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "scipy",
+    "seaborn",
+    "torch",
+    "scikit-learn",
+    "tqdm",
+    "networkx",
+]
+[project.optional-dependencies]
+tests = ["pytest", "pytest-cov"]
+build-doc = ["sphinx","sphinx_rtd_theme", "sphinx_copybutton", "sphinx_codeautolink", "autoclasstoc"]
+
+[project.urls]
+Homepage = "https://github.com/AlexandreChaussard/PLNTree-package"
+Issues = "https://github.com/AlexandreChaussard/PLNTree-package/issues"
+
+[tool.setuptools]
+py-modules = ["plntree"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["plntree", "plntree.*"]
+namespaces = false
