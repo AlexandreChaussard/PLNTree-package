@@ -6,8 +6,8 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "plntree_test2"
-version = "0.0.1"
+name = "plntree"
+version = "1.0.0"
 description = "Package implementing PLN-Tree models and TaxaPLN augmentation."
 readme = "README.md"
 license = "MIT"
@@ -42,9 +42,6 @@ dependencies = [
     "tqdm",
     "networkx",
 ]
-[project.optional-dependencies]
-tests = ["pytest", "pytest-cov"]
-build-doc = ["sphinx","sphinx_rtd_theme", "sphinx_copybutton", "sphinx_codeautolink", "autoclasstoc"]
 
 [project.urls]
 Homepage = "https://github.com/AlexandreChaussard/PLNTree-package"
