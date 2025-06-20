@@ -6,7 +6,7 @@
 > The Poisson Log-Normal (PLN) models are used for the
 > analysis of multivariate count data. PLN-Tree extends this framework to 
 > hierarchically organized count data by incorporating tree-like structures
-> into the analysis. This package provides efficient algorithms to perform the PLN-Tree inference
+> into the analysis. This package provides efficient algorithms to perform PLN-Tree inference
 > by leveraging PyTorch with GPU acceleration.
 > 
 > PLN-Tree has shown interesting applications to metagenomics, exploiting the taxonomy 
@@ -15,7 +15,7 @@
 > Typical applications involve:
 > - **Hierarchical Modeling**: investigate the relationships between taxa at different levels of the taxonomy, between levels relationships and covariates impact.
 > - **Data Augmentation**: generate synthetic samples to inflate training sets and enhance performances. See TaxaPLN augmentation.
-> - **Counts preprocessing**: transform counts using the LP-CLR transform to tackle the challenges of compositionality and integer constraints of count data.
+> - **Counts Preprocessing**: transform counts using the LP-CLR transform to tackle the challenges of compositionality and integer constraints of count data.
 
 ## 📖 Documentation and tutorials
 
@@ -115,7 +115,7 @@ This preprocessing is also compatible with covariates.
 
 ## 👐 Contributing
 
-Want to contribute? Check the guidelines in [CONTRIBUTING.md](https://github.com/AlexandreChaussard/PLNTree-package/blob/main/CONTRIBUTING.md).
+Want to contribute? Check the guidelines in [CONTRIBUTING.md](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/CONTRIBUTING.md).
 
 ## 📜 Citations
 
