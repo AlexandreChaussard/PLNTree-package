@@ -60,10 +60,18 @@ associated to each patient.
 The `PLNTree` class allows to specify the parameters of the model, and perform the inference on the training data.
 ```python
 from plntree import PLNTree
-model = PLNTree(...)
+model = PLNTree(
+            taxa_abundance,   # DataFrame with counts (rows: samples, columns: taxa)
+            covariates=None,  # DataFrame with covariates (optional, default None)
+            device='cpu',     # Device to use for training (default CPU, or 'cuda' for GPU)
+            seed=0,           # Random seed for reproducibility (default None)
+)
 ```
-
-TODO: define the parameters of the model.
+By default the latent dynamic is set to a Markov Linear model, which is suitable for most metagenomics cases.
+Besides, the variational approximation is set to a residual amortized backward method, which is more efficient than
+the mean-field approximation for PLN-Tree, but requires more parameters. If you use the covariates,
+the default implementation relies on FiLM.
+See the [documentation]() to understand how to customize these parameters.
 
 The package comes with visualization functions to help interpret the data, notably
 calling the `tree.plot` method, which will display the tree structure.
@@ -72,11 +80,11 @@ from plntree import PLNTree
 model.tree.plot()
 ```
 
-Training a PLN-Tree model is done by calling the `fit` method on the model.
+Training a PLN-Tree model is done by calling the `fit` method on the model. 
+More parameters are available for early stopping or convergence monitoring.
 ```python
-model.fit(...)
+model.fit(max_epoch=5_000, batch_size=512, learning_rate=1e-3)
 ```
-TODO: define the parameters of the fit method.
 
 ### Applications
 
@@ -88,9 +96,9 @@ For microbiome data, an effective way to perform data augmentation relies on the
 which is thoroughly described in [this paper](). In a nutshell, TaxaPLN uses the PLN-Tree model to generate synthetic samples
 through a post-hoc VAMP sampler that is instanciated from the trained model.
 ```python
-X_aug, Z_aug = model.vamp_sample(n_samples=1000)
+X_aug, Z_aug = model.vamp_sample(n_samples=1000, seed=0)
 ```
-TODO: define the parameters and outputs of the vamp_sample method.
+Covariate-aware sampling is also available if the model was trained with covariates using the `covariates` parameter.
 
 #### Count Preprocessing with LP-CLR
 PLN-Tree can also be used to preprocess count data using the LP-CLR transform, 
@@ -100,10 +108,10 @@ and integer constraints of count data by leveraging the latent space.
 Upon training a PLN-Tree model, applying the preprocessing can be done through the `latent_proportion` method
 which defines counts in the latent space, before applying the CLR transform.
 ```python
-X_transformed = model.latent_proportion(taxa_abundance)
-X_LPCLR = ...
+Z = model.encode(taxa_abundance)                                # First, encode the counts to the latent space
+X_preprocessed = model.latent_proportions(Z, clr=True, seed=0)  # Then, apply the LP-CLR transform
 ```
-TODO: define the parameters and outputs of the latent_proportion method.
+This preprocessing is also compatible with covariates.
 
 ## 👐 Contributing
 
