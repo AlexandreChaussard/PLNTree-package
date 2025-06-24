@@ -3,7 +3,7 @@
 > Microbiome datasets are often high dimensional, limited in size and highly variable, making it hard for machine learning models to find reliable patterns.
 > In this context, data augmentation has emerged as a promising solution to improve model performance by generating synthetic samples.
 >
-> Here, we develop and evaluate TaxaPLN, an augmentation strategy which leverages taxonomic information and a VAMP sampler to generate new biologically faithful microbiome compositions. 
+> Here, we develop and evaluate TaxaPLN, an augmentation strategy which leverages taxonomic information through PLN-Tree coupled with a VAMP sampler to generate new biologically faithful microbiome compositions. 
 > It can also generate microbiomes conditioned on exogenous information, allowing for covariate-aware augmentation.
 
 # ⚡️ General usage
@@ -19,14 +19,12 @@ We provide a fast access to microbiome studies from the `curatedMetagenomicData`
 import curatedMetagenomicData as cMD
 
 taxa_abundance = cMD.taxa_abundance(
-    directory='./',              # Relative path to the data directory
     study='ZhuF_2020',           # Study name
     taxonomic_levels=('c', 's'), # Taxonomic levels to retrieve
     prevalence=0.,               # Minimum prevalence of taxa to include
     total_reads=100_000          # Total abundance of each sample (proportions to counts)
 )
 covariates = cMD.metadata(
-    directory='./',              # Relative path to the data directory
     study='ZhuF_2020',           # Study name
 )
 ```
@@ -36,10 +34,10 @@ Upon data retrieval, you can use the `PLNTree` class to train a model on your da
 from plntree import PLNTree
 
 model = PLNTree(
-    taxa_abundance,   # DataFrame with counts (rows: samples, columns: taxa)
+    taxa_abundance,         # DataFrame with counts (rows: samples, columns: taxa)
     covariates=covariates,  # DataFrame with covariates (optional, default None)
-    device='cpu',     # Device to use for training (default CPU, or 'cuda' for GPU)
-    seed=0,           # Random seed for reproducibility (default None)
+    device='cpu',           # Device to use for training (default CPU, or 'cuda' for GPU)
+    seed=0,                 # Random seed for reproducibility (default None)
 )
 ```
 
@@ -71,12 +69,21 @@ To reproduce our results from this paper, you first need to install the `plntree
 ```bash
 pip install plntree
 ```
+You also need to install the following dependencies:
+```bash
+pip install pyPLNmodels==0.0.69
+pip install scikit-bio==0.6.3
+pip install POT==0.9.5
+```
 
 Then, you need to train the PLN-Tree models for each dataset from the `curatedMetagenomicData` package we used, using the following command:
 ```bash
-python -m python_script.py
+python3 curated_train_dataset_CV.py -d <dataset_name> -r 25 -c <covariates "none" or "all"> -e <max_epoch>
 ```
 Since we ran comprehensive experiments in 25 x 5-Fold CV (125 models per dataset), this procedure takes several days to end.
+Use covariates `all` to reproduce the covariate-aware results, or `none` to reproduce the vanilla augmentation results.
+Dataset names are among: WirbelJ_2018, KosticAD_2015, RubelMA_2020, ZhuF_2020, ZellerG_2014, YachidaS_2019, YuJ_2015, NielsenHB_2014, HMP_2019_ibdmdb.
+Refer to the [original paper](.) for more details on the datasets and see which are compatible with covariates.
 
 Upon completion, the models should be cached in `cache`, allowing you to run the [plntree_data_augmentation-CV.ipynb](.) notebook and reproduce the results of our paper.
 

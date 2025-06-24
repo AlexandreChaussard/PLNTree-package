@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import warnings
 import os
+import importlib.resources
 
 warnings.filterwarnings("ignore")
 
@@ -11,13 +12,20 @@ def metadata(directory='./', study=None):
     Parameters
     ----------
     directory: str
+        Look for the metadata file in this directory; if not found, use the default package resource.
     study: None or str
+        Name of the study. If None, return all metadata.
 
     Returns
     -------
     pd.DataFrame
     """
-    metadata = pd.read_csv(os.path.join(directory, 'metadata.csv'), dtype=str).set_index('sample_id')
+    path = os.path.join(directory, 'metadata.csv')
+    if os.path.exists(path):
+        metadata = pd.read_csv(path, dtype=str).set_index('sample_id')
+    else:
+        with importlib.resources.path(__package__.split('.')[0] + '.data.cMD', 'metadata.csv') as metadata_path:
+            metadata = pd.read_csv(metadata_path, dtype=str).set_index('sample_id')
     if study is None:
         return metadata
     metadata = metadata[metadata['study_name'] == study]
@@ -29,19 +37,33 @@ def get_study(directory='./', study=None, taxonomic_levels=('c', 's'), prevalenc
     Parameters
     ----------
     directory: str
+        Look for the study counts in this directory; if not found, use the default package resource.
     study: str
+        Name of the study.
 
     Returns
     -------
     pd.DataFrame
     """
-    for filename in os.listdir(directory + '/studies/'):
+    path = directory, 'studies'
+    try:
+        iterator = os.listdir(path)
+    except TypeError:
+        path = __package__.split('.')[0] + '.data.cMD.studies'
+        iterator = importlib.resources.files(path).iterdir()
+        iterator = [str(f.name) for f in iterator if f.is_file()]
+    for filename in iterator:
         if study in filename:
             study = filename
             break
     if study is None:
         raise ValueError(f'Study not found.')
-    abundance = pd.read_csv(directory + f'/studies/{study}', index_col=0).astype(float)
+    path = directory + f'/studies/{study}'
+    if os.path.exists(path):
+        abundance = pd.read_csv(directory + f'/studies/{study}', index_col=0).astype(float)
+    else:
+        with importlib.resources.path(__package__.split('.')[0] + '.data.cMD.studies', study) as study_path:
+            abundance = pd.read_csv(study_path, index_col=0).astype(float)
     abundance = _get_bacteria(abundance)
     abundance = _aggregate_abundances(abundance, taxonomic_levels[1])
 

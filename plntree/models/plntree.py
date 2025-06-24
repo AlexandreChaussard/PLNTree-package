@@ -55,10 +55,14 @@ class PLNTree(nn.Module):
             Parameters for the latent dynamic model. If None, defaults to a Markov linear model with 1 layer.
         variational_approx: dict
             Parameters for the variational approximation method. If None, defaults to a residual backward Markov approximation.
+        covariates_params: dict
+            Parameters for the covariates processing. If None, defaults to FiLM with 1 layer preprocessing.
         level_regex: str
             Hierarchy regex to split the features into levels. Default is '|'.
         clade_regex: str
             Clade regex to split the features into clades. Default is '__'.
+        smart_init: bool
+            Initialize parameters at the first level based on the input data. If True, uses a smart initialization method.
         device: str
             Use 'cpu' or 'cuda' to specify the device for the model. If None, defaults to 'cpu'.
         seed: int
@@ -85,8 +89,6 @@ class PLNTree(nn.Module):
             self.latent_dynamic = {
                 'n_layers': 1,
                 'diagonal': False,
-                'mean_bounds': (-12., 12.),
-                'variance_bounds': (1e-8, 10.),
                 'covariates_layers': 1,
                 'combining_layers': 1,
                 'markov_covariance': True,
@@ -270,7 +272,7 @@ class PLNTree(nn.Module):
             self.omega_fun.append(omega_l.to(self.device))
 
         # We define the variational approximation parameters
-        if self.variational_approx['method'] == 'mean field':
+        if self.variational_approx['method'] == 'mean_field':
             self.m_fun, self.log_S_fun = mean_field(
                 tree=self.tree,
                 covariates_params=self.covariates_params,

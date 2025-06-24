@@ -9,7 +9,7 @@ import matplotlib.gridspec as gridspec
 import matplotlib.cm as cm
 
 from scipy.stats import wasserstein_distance, ks_2samp, entropy, gaussian_kde
-from plntree.utils.metrics import bray_curtis_dissimilarity_matrix, chao1_index, shannon_index, simpson_index
+from diversity_metrics import bray_curtis_dissimilarity_matrix, shannon_index, simpson_index
 
 from skbio.stats.distance import permanova, permdisp
 from skbio.stats.distance import DistanceMatrix
@@ -389,8 +389,6 @@ def multilayer_alpha_diversity(tree, X, alpha='shannon'):
         alpha_fun = shannon_index
     elif alpha.lower() == 'simpson':
         alpha_fun = simpson_index
-    elif alpha.lower() == 'chao1':
-        alpha_fun = chao1_index
     alpha_per_level = []
     for level in range(tree.L):
         alpha_per_level.append(alpha_fun(X[:, level, :tree.K[level]]).numpy())

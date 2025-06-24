@@ -1,0 +1,6 @@
+/taxapln/.ipynb_checkpoints/plntree_data_augmentation-CV-checkpoint.ipynb
+.idea/*
+*.idea
+*.xml
+*.iml
+taxapln/cache/*

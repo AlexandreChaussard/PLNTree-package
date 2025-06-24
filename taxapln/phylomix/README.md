@@ -1,5 +1,8 @@
 # README: Mixup and Phylomix for Phylogeny Datasets
 
+## Credits
+This fork originates from [Phylomix's repository](https://github.com/batmen-lab/phylomix/).
+
 ## Overview
 This project provides an implementation of data augmentation methods for phylogeny datasets, with a focus on leveraging tree-based relationships between features. The main method introduced is **Phylomix**, which combines phylogenetic information with compositional data for enhanced data augmentation. In addition, several baseline methods are implemented, including vanilla Mixup, Aitchison Mixup, and Cutmix variants.
 

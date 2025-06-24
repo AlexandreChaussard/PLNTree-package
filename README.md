@@ -21,7 +21,9 @@
 
 Want to learn how to use the package? 
 Start with the quickstart guide below, 
-then explore the [documentation]().
+then explore the [documentation](https://github.com/AlexandreChaussard/PLNTree-package/wiki).
+
+If you are interest specifically in the TaxaPLN augmentation strategy for microbiome data, check out our [TaxaPLN starting guide](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/README.md).
 
 ## 🛠 Installation
 
@@ -38,7 +40,6 @@ This package comes with human microbiome data from the [curatedMetagenomicData](
 from plntree.data import cMD
 
 taxa_abundance = cMD.get_study(
-    directory='./',              # Relative path to the data directory
     study='ZhuF_2020',           # Study name
     taxonomic_levels=('c', 's'), # Taxonomic levels to retrieve
     prevalence=0.,               # Minimum prevalence of taxa to include
@@ -46,7 +47,6 @@ taxa_abundance = cMD.get_study(
 )
 
 covariates = cMD.metadata(
-    directory='./',              # Relative path to the data directory
     study='ZhuF_2020',           # Study name
 )
 ```
@@ -92,7 +92,7 @@ model.fit(max_epoch=5_000, batch_size=512, learning_rate=1e-3)
 PLN-Tree can be used to generate synthetic samples to augment training sets and 
 improve downstream tasks performances.
 
-For microbiome data, an effective way to perform data augmentation relies on the [TaxaPLN](.) strategy,
+For microbiome data, an effective way to perform data augmentation relies on the [TaxaPLN](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/README.md) strategy,
 which is thoroughly described in [this paper](). In a nutshell, TaxaPLN uses the PLN-Tree model to generate synthetic samples
 through a post-hoc VAMP sampler that is instanciated from the trained model.
 ```python
