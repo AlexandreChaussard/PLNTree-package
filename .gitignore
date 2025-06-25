@@ -4,3 +4,6 @@
 *.xml
 *.iml
 taxapln/cache/*
+*/.ipynb_checkpoints/*
+/taxapln/plntree-cache.zip
+/.ipynb_checkpoints/CONTRIBUTING-checkpoint.md

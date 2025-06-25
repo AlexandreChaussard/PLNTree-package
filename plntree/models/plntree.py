@@ -995,7 +995,7 @@ class PLNTree(nn.Module):
             offsets=None,
             mean=False,
             threshold_offset=20.,
-            sparsity=1e-8,
+            sparsity=1e-4,
             seed=None
     ):
         """

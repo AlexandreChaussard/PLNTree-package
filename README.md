@@ -121,5 +121,5 @@ Want to contribute? Check the guidelines in [CONTRIBUTING.md](https://github.com
 
 Please cite our work using the following references:
 
-- Chaussard, A., Bonnet, A., Gassiat, E., & Le Corff, S. (2024). *Tree-based variational inference for Poisson log-normal models.* [arXiv preprint arXiv:2406.17361](https://arxiv.org/abs/2406.17361).
+- Chaussard, A., Bonnet, A., Gassiat, E., Le Corff, S.. Tree-based variational inference for Poisson log-normal models. Statistics and Computing 35, 135 (2025). [SpringerLink](https://doi.org/10.1007/s11222-025-10668-w).
 

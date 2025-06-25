@@ -1,9 +1,9 @@
 # TaxaPLN: a taxonomy-aware augmentation strategy for microbiome-trait classification including metadata
 
 > Microbiome datasets are often high dimensional, limited in size and highly variable, making it hard for machine learning models to find reliable patterns.
-> In this context, data augmentation has emerged as a promising solution to improve model performance by generating synthetic samples.
+> In this context, data augmentation emerges as a promising solution to improve model performance by generating synthetic samples.
 >
-> Here, we develop and evaluate TaxaPLN, an augmentation strategy which leverages taxonomic information through PLN-Tree coupled with a VAMP sampler to generate new biologically faithful microbiome compositions. 
+> Here, we develop and evaluate TaxaPLN, an augmentation strategy for microbiome data which leverages taxonomic information through PLN-Tree coupled with a VAMP sampler to generate new biologically faithful microbiome compositions. 
 > It can also generate microbiomes conditioned on exogenous information, allowing for covariate-aware augmentation.
 
 # ⚡️ General usage
@@ -73,6 +73,7 @@ You also need to install the following dependencies:
 ```bash
 pip install pyPLNmodels==0.0.69
 pip install scikit-bio==0.6.3
+pip install ete4==4.1.1
 pip install POT==0.9.5
 ```
 
