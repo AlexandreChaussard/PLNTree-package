@@ -34,7 +34,7 @@ def seed_all(seed):
     np.random.seed(seed)
     torch.random.manual_seed(seed)
 
-def savefig(name, extension='pdf'):
+def savefig(name, extension='tif'):
     """
     Save the current figure with the given name and extension.
     Parameters
@@ -46,7 +46,7 @@ def savefig(name, extension='pdf'):
     -------
 
     """
-    plt.savefig(f"pictures/{name}.{extension}", bbox_inches='tight', dpi=100)
+    plt.savefig(f"pictures/{name}.{extension}", bbox_inches='tight', dpi=350)
 
 def save_dataset(name, X, hierarchy):
     """
