@@ -46,7 +46,7 @@ def savefig(name, extension='tif', dpi=350):
     -------
 
     """
-    plt.savefig(f"pictures/{name}.{extension}", bbox_inches='tight', dpi=dpi)
+    plt.savefig(f"pictures/{name}.{extension}".replace(' ', '_'), bbox_inches='tight', dpi=dpi)
 
 def save_dataset(name, X, hierarchy):
     """
