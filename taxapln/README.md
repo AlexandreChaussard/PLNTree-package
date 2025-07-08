@@ -87,6 +87,15 @@ Dataset names are among:
 `WirbelJ_2018, KosticAD_2015, RubelMA_2020, ZhuF_2020, ZellerG_2014, YachidaS_2019, YuJ_2015, NielsenHB_2014, HMP_2019_ibdmdb`.
 Refer to the [original paper](https://arxiv.org/abs/2507.03588) for more details on the datasets and see which are compatible with covariates.
 
+If you want to use the model weights we trained, you can download them from [Zenodo](https://zenodo.org/records/15736785) (~40 Go) using the following command:
+```bash
+wget https://zenodo.org/records/15736785/files/plntree-cache.zip
+```
+Then, unzip the file in the `taxapln` folder and merge it with the existing `cache` folder:
+```bash
+unzip plntree-cache.zip
+```
+
 Upon completion, the model weights should be available in `cache`, allowing you to run the [plntree_data_augmentation-CV.ipynb](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/plntree_data_augmentation-CV.ipynb) notebook and reproduce the results of our paper.
 
 ## 📜 Citation
