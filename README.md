@@ -1,5 +1,5 @@
 ![PyPI](https://img.shields.io/pypi/v/plntree)
-![GitHub](https://img.shields.io/github/license/AlexandreChaussard/PLNTree-package)
+![GitHub](https://img.shields.io/github/license/AlexandreChaussard/plntree-package)
 ![Python Versions](https://img.shields.io/badge/python-3.8+-blue)
 ![GPU Support](https://img.shields.io/badge/GPU-Supported-brightgreen)
 # PLN-Tree: Hierarchical Poisson Log-Normal models
