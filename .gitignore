@@ -8,3 +8,5 @@ taxapln/cache/*
 /taxapln/plntree-cache.zip
 /.ipynb_checkpoints/
 /taxapln/pictures/TIF figures.zip
+/dist/*
+/plntree.egg-info/*
