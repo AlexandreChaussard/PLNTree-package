@@ -21,7 +21,7 @@ import curatedMetagenomicData as cMD
 taxa_abundance = cMD.taxa_abundance(
     study='ZhuF_2020',           # Study name
     taxonomic_levels=('c', 's'), # Taxonomic levels to retrieve
-    prevalence=0.,               # Minimum prevalence of taxa to include
+    prevalence=0.15,             # Minimum prevalence of taxa to include
     total_reads=100_000          # Total abundance of each sample (proportions to counts)
 )
 covariates = cMD.metadata(
@@ -43,7 +43,7 @@ model = PLNTree(
 
 Then, you can fit the model on your data:
 ```python
-model.fit(max_epoch=5_000, batch_size=512, learning_rate=1e-3)
+loss = model.fit(max_epoch=4_000, batch_size=512, learning_rate=1e-3, verbose=50)
 ```
 
 Finally, you can use the model to generate synthetic samples using the `sample` method:

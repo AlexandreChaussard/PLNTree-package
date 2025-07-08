@@ -15,12 +15,12 @@
 > Typical applications involve:
 > - **Hierarchical Modeling**: investigate the relationships between taxa at different levels of the taxonomy, between levels relationships and covariates impact.
 > - **Data Augmentation**: generate synthetic samples to inflate training sets and enhance performances. See TaxaPLN augmentation.
-> - **Counts Preprocessing**: transform counts using the LP-CLR transform to tackle the challenges of compositionality and integer constraints of count data.
+> - **Counts Preprocessing**: transform counts using the LTP-CLR transform to tackle the challenges of compositionality and integer constraints of count data.
 
 ## 📖 Documentation and tutorials
 
 Want to learn how to use the package? 
-Start with the quickstart guide below, 
+Start with the Quickstart guide down below, 
 then explore the [documentation](https://github.com/AlexandreChaussard/PLNTree-package/wiki).
 
 If you are interest specifically in the TaxaPLN augmentation strategy for microbiome data, check out our [TaxaPLN starting guide](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/README.md).
@@ -42,7 +42,7 @@ from plntree.data import cMD
 taxa_abundance = cMD.get_study(
     study='ZhuF_2020',           # Study name
     taxonomic_levels=('c', 's'), # Taxonomic levels to retrieve
-    prevalence=0.,               # Minimum prevalence of taxa to include
+    prevalence=0.15,             # Minimum prevalence of taxa to include
     total_reads=100_000          # Total abundance of each sample (proportions to counts)
 )
 
@@ -83,7 +83,7 @@ model.tree.plot()
 Training a PLN-Tree model is done by calling the `fit` method on the model. 
 More parameters are available for early stopping or convergence monitoring.
 ```python
-model.fit(max_epoch=5_000, batch_size=512, learning_rate=1e-3)
+loss = model.fit(max_epoch=1000, batch_size=512, learning_rate=1e-3, verbose=50)  # Output ELBO loss upon fitting
 ```
 
 ### Applications
@@ -100,16 +100,16 @@ X_aug, Z_aug = model.vamp_sample(n_samples=1000, seed=0)
 ```
 Covariate-aware sampling is also available if the model was trained with covariates using the `covariates` parameter.
 
-#### Count Preprocessing with LP-CLR
-PLN-Tree can also be used to preprocess count data using the LP-CLR transform, 
+#### Count Preprocessing with LTP-CLR
+PLN-Tree can also be used to preprocess count data using the LTP-CLR transform defined in the [PLN-Tree paper](https://doi.org/10.1007/s11222-025-10668-w),
 which is a log-ratio transformation that addresses the challenges of compositionality 
 and integer constraints of count data by leveraging the latent space.
 
 Upon training a PLN-Tree model, applying the preprocessing can be done through the `latent_proportion` method
 which defines counts in the latent space, before applying the CLR transform.
 ```python
-Z = model.encode(taxa_abundance)                                # First, encode the counts to the latent space
-X_preprocessed = model.latent_proportions(Z, clr=True, seed=0)  # Then, apply the LP-CLR transform
+Z = model.encode(taxa_abundance)                                     # First, encode the counts to the latent space
+X_preprocessed = model.latent_tree_proportions(Z, clr=True, seed=0)  # Then, apply the LTP-CLR transform
 ```
 This preprocessing is also compatible with covariates.
 
