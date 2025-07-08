@@ -71,7 +71,7 @@ By default the latent dynamic is set to a Markov Linear model, which is suitable
 Besides, the variational approximation is set to a residual amortized backward method, which is more efficient than
 the mean-field approximation for PLN-Tree, but requires more parameters. If you use the covariates,
 the default implementation relies on FiLM.
-See the [documentation]() to understand how to customize these parameters.
+See the [documentation](https://github.com/AlexandreChaussard/PLNTree-package/wiki) to understand how to customize these parameters.
 
 The package comes with visualization functions to help interpret the data, notably
 calling the `tree.plot` method, which will display the tree structure.
@@ -93,7 +93,7 @@ PLN-Tree can be used to generate synthetic samples to augment training sets and
 improve downstream tasks performances.
 
 For microbiome data, an effective way to perform data augmentation relies on the [TaxaPLN](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/README.md) strategy,
-which is thoroughly described in [this paper](). In a nutshell, TaxaPLN uses the PLN-Tree model to generate synthetic samples
+which is thoroughly described in [this paper](https://arxiv.org/abs/2507.03588). In a nutshell, TaxaPLN uses the PLN-Tree model to generate synthetic samples
 through a post-hoc VAMP sampler that is instanciated from the trained model.
 ```python
 X_aug, Z_aug = model.vamp_sample(n_samples=1000, seed=0)

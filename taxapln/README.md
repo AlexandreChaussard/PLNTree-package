@@ -8,7 +8,7 @@
 
 # ⚡️ General usage
 
-First, install the `plntree` package, which contains the implementation of TaxaPLN
+First, install the `plntree` package, which contains the implementation of TaxaPLN:
 ```bash
 pip install plntree
 ```
@@ -63,7 +63,7 @@ X_augmented = pd.concat([taxa_abundance, X_L], axis=0)  # Concatenate original a
 # ⚡️ Reproducing our results
 
 We implemented TaxaPLN as part of the PLN-Tree package. 
-In this folder, you will find the code and experiments that we ran in the context of [our paper available here](.).
+In this folder, you will find the code and experiments that we ran in the context of [our paper available here](https://arxiv.org/abs/2507.03588).
 
 To reproduce our results from this paper, you first need to install the `plntree` package:
 ```bash
@@ -83,13 +83,14 @@ python3 curated_train_dataset_CV.py -d <dataset_name> -r 25 -c <covariates "none
 ```
 Since we ran comprehensive experiments in 25 x 5-Fold CV (125 models per dataset), this procedure takes several days to end.
 Use covariates `all` to reproduce the covariate-aware results, or `none` to reproduce the vanilla augmentation results.
-Dataset names are among: WirbelJ_2018, KosticAD_2015, RubelMA_2020, ZhuF_2020, ZellerG_2014, YachidaS_2019, YuJ_2015, NielsenHB_2014, HMP_2019_ibdmdb.
-Refer to the [original paper](.) for more details on the datasets and see which are compatible with covariates.
+Dataset names are among: 
+`WirbelJ_2018, KosticAD_2015, RubelMA_2020, ZhuF_2020, ZellerG_2014, YachidaS_2019, YuJ_2015, NielsenHB_2014, HMP_2019_ibdmdb`.
+Refer to the [original paper](https://arxiv.org/abs/2507.03588) for more details on the datasets and see which are compatible with covariates.
 
-Upon completion, the models should be cached in `cache`, allowing you to run the [plntree_data_augmentation-CV.ipynb](.) notebook and reproduce the results of our paper.
+Upon completion, the model weights should be available in `cache`, allowing you to run the [plntree_data_augmentation-CV.ipynb](https://github.com/AlexandreChaussard/PLNTree-package/blob/master/taxapln/plntree_data_augmentation-CV.ipynb) notebook and reproduce the results of our paper.
 
 ## 📜 Citation
 
 Please cite our work using the following reference:
 
--
+- Alexandre Chaussard, Anna Bonnet, Sylvain Le Corff, & Harry Sokol. (2025). TaxaPLN: a taxonomy-aware augmentation strategy for microbiome-trait classification including metadata. arXiv preprint arXiv:2507.03588.
