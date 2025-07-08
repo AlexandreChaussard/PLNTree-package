@@ -122,4 +122,5 @@ Want to contribute? Check the guidelines in [CONTRIBUTING.md](https://github.com
 Please cite our work using the following references:
 
 - Chaussard, A., Bonnet, A., Gassiat, E., Le Corff, S.. Tree-based variational inference for Poisson log-normal models. Statistics and Computing 35, 135 (2025). [SpringerLink](https://doi.org/10.1007/s11222-025-10668-w).
+- Chaussard, A., Bonnet, A., Le Corff, S., Sokol H.. TaxaPLN: a taxonomy-aware augmentation strategy for microbiome-trait classification including metadata. arXiv preprint arXiv:2507.03588 (2025). [arXiv](https://arxiv.org/abs/2507.03588).
 
