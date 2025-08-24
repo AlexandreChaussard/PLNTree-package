@@ -1,4 +1,4 @@
-# This script is a fork from the AugCoda packages functions and PhyloMix package
+# Parts of this script is a fork from the AugCoda packages functions and PhyloMix package
 # Credits to https://github.com/cunningham-lab/AugCoDa and https://github.com/batmen-lab/phylomix
 
 import numpy as np
@@ -11,6 +11,8 @@ from tqdm.auto import tqdm
 
 from phylomix.src.mixup import augment
 from phylomix.src.mixup.data import PhylogenyDataset, PhylogenyTree
+
+from sklearn.metrics import pairwise_distances
 
 def vanilla_mixup(X_train, n_aug=10):
     """
@@ -246,3 +248,37 @@ def get_phylogeny(X):
     mask = X.transpose().index.map(lambda t: taxon_to_species(t) in phylo_species)
     counts = X.transpose().loc[mask].copy().transpose()
     return phylo_tree, counts
+
+
+def smote(X_train, n_aug=10, metric='euclidean', k=5):
+    """
+    Generate augmented data using vanilla mixup.
+    Parameters
+    ----------
+    X_train: np.ndarray
+    n_aug: int
+    metric: str
+    k: int
+
+    Returns
+    -------
+
+    """
+    X = X_train.copy()
+    n = X.shape[0]
+
+    # Computing the pairwise distance matrix
+    dist_matrix = pairwise_distances(X, metric=metric)
+    # Setting the diagonal to infinity to avoid self-neighbors
+    np.fill_diagonal(dist_matrix, np.inf)
+    # Finding the k nearest neighbors for each sample
+    neighbors = np.argsort(dist_matrix, axis=1)[:, :k]
+    # Drawing a random points for each augmentation
+    random_points = np.random.randint(0, n, size=n_aug)
+    # Selecting a random neighbor for each random point
+    random_neighbor = [np.random.choice(neighbors[i]) for i in random_points]
+    # Drawing the mixing parameters
+    lam = np.random.rand(n_aug).reshape([-1, 1])
+    # Performing the mixup
+    X_aug = lam * X[random_points] + (1 - lam) * X[random_neighbor]
+    return X_aug
